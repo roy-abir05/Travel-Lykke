@@ -25,18 +25,20 @@ class TravelOption(models.Model):
         ]
 
     def book_seats(self, num_seats: int):
-        if self.available_seats >= num_seats:
-            self.available_seats -= num_seats
-            self.save()
-        else:
-            raise ValueError("Not enough seats available")
+        if num_seats <= 0:
+            raise ValidationError("Number of seats to book must be positive")
+        if self.available_seats < num_seats:
+            raise ValidationError("Not enough seats available")            
+        self.available_seats -= num_seats
+        self.save()
     
     def release_seats(self, num_seats: int):
-        if num_seats > 0:
-            self.available_seats += num_seats
-            self.save()
-        else:
-            raise ValueError("Number of seats to release must be positive")
+        if num_seats <= 0:
+            raise ValidationError("Number of seats to release must be positive")
+        self.available_seats += num_seats
+        self.save()
+
+
         
     def clean(self):
         if self.arrival_time <= self.departure_time:
