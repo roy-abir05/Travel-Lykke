@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('users/', include('users.urls')),
-    path('travels-options/', include('travel_options.urls')),
-    path('bookings/', include('bookings.urls')),
+    path('', views.home, name='home'),
+    path('admin/', admin.site.urls, name='admin'),
+    path('users/', include('users.urls'), name='users'),
+    path('travel_options/', include('travel_options.urls'), name='travel_options'),
+    path('bookings/', include('bookings.urls'), name='bookings'),
 ]
 
 if settings.DEBUG:

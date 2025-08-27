@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% block title %}Travel Lykke{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/tailwindcss">
+      :root {
+        --primary-color: #fb3d6d;
+        --background-color: #1a1a1a;
+        --surface-color: #2c2c2c;
+        --on-surface-color: #fce8ed;
+        --on-surface-variant-color: #f7a0b8;
+      }
+      body {
+        font-family: "Spline Sans", sans-serif;
+        background-color: var(--background-color);
+        color: var(--on-surface-color);
+      }
+      .primary-cta {
+        @apply bg-[var(--primary-color)] text-white;
+      }
+    </style>
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body class="bg-[var(--background-color)]">
+    <div class="flex flex-col min-h-screen">
+      {% include "./header.html" %}
+
+      <main class="flex-grow">{% block content %}{% endblock %}</main>
+
+      {% include "./footer.html" %}
+    </div>
+  </body>
+</html>
