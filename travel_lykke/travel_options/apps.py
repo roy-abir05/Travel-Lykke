@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TravelsConfig(AppConfig):
+class TravelOptionsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'travels'
+    name = 'travel_options'
