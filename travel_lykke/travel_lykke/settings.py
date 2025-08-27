@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'users',
-    'travels_options',
+    'travel_options',
     'bookings',
 ]
 
