@@ -1,0 +1,175 @@
+{% extends "base.html" %} {% block extra_head %}
+<style type="text/tailwindcss">
+  :root {
+    --primary-color: #fb3d6d;
+    --background-color: #0d0d0d;
+    --surface-color: #1a1a1a;
+    --on-surface-color: #a3a3a3;
+    --text-color: #ffffff;
+    --accent-color: #262626;
+  }
+  body {
+    font-family: "Spline Sans", sans-serif;
+  }
+  .input-field {
+    @apply w-full rounded-lg border-none bg-[var(--accent-color)] p-4 text-base text-[var(--text-color)] placeholder:text-[var(--on-surface-color)] focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50;
+  }
+</style>
+{% endblock %} {% block content %}
+<main class="flex-1 bg-[var(--background-color)] py-12 sm:px-6 lg:px-8">
+  <div class="container mx-auto max-w-4xl">
+    <div class="space-y-8">
+      <!-- Profile Header -->
+      <div class="flex items-center gap-6">
+        <div class="relative">
+          <img
+            alt="User Profile"
+            class="w-32 h-32 rounded-full object-cover border-4 border-[var(--surface-color)]"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdCXfSWaMauiEZSlzm6-swxc-cWUvCCzWV3-EMUaEgHVXH77QFj3Z1mV5w2J8PNqUwdl7XRdznHxfwey8IjNqcpYkBpi8T9pFtYhl8No4cbI20wRrw3iyqIgOLUbDLrpkWml0lMKt8BzwoSPp2gLLgxX0MoLYlRT1XYQxyUmxQgskAwPQhrxDRy_4VGV7aWUNfdEGwgw3Y1t3B9TA7Zj0PC9kQ64L2H2pKnd6s2XNaV5gNoy4_8vRMdlxCCcTvY4Uu2zP7xPX0JVVV"
+          />
+          <button
+            class="absolute bottom-1 right-1 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--primary-color)] text-black hover:bg-opacity-90 transition-all"
+          >
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+              ></path>
+              <path
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold">Sofia Chen</h2>
+          <p class="text-[var(--on-surface-color)]">Joined March 2023</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Sidebar -->
+        <div class="md:col-span-1">
+          <div class="bg-[var(--surface-color)] rounded-2xl p-6">
+            <h3 class="text-xl font-bold mb-4">Navigation</h3>
+            <nav class="space-y-2">
+              <a
+                class="flex items-center gap-3 rounded-lg bg-[var(--accent-color)] px-4 py-3 text-sm font-medium text-[var(--primary-color)]"
+                href="#"
+              >
+                <span>Profile</span>
+              </a>
+              <a
+                class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-white hover:bg-[var(--accent-color)] transition-colors"
+                href="#"
+              >
+                <span>My Bookings</span>
+              </a>
+              <a
+                class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-white hover:bg-[var(--accent-color)] transition-colors"
+                href="#"
+              >
+                <span>Preferences</span>
+              </a>
+              <a
+                class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-white hover:bg-[var(--accent-color)] transition-colors"
+                href="#"
+              >
+                <span>Security</span>
+              </a>
+              <a
+                class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-white hover:bg-[var(--accent-color)] transition-colors"
+                href="#"
+              >
+                <span>Help</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="md:col-span-2">
+          <div class="bg-[var(--surface-color)] rounded-2xl p-8">
+            <h3 class="text-xl font-bold mb-6">Personal Information</h3>
+            <form action="#" class="space-y-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="first-name"
+                    class="block text-sm font-medium text-[var(--on-surface-color)] mb-2"
+                    >First name</label
+                  >
+                  <input
+                    type="text"
+                    id="first-name"
+                    name="first-name"
+                    value="Sofia"
+                    class="input-field"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="last-name"
+                    class="block text-sm font-medium text-[var(--on-surface-color)] mb-2"
+                    >Last name</label
+                  >
+                  <input
+                    type="text"
+                    id="last-name"
+                    name="last-name"
+                    value="Chen"
+                    class="input-field"
+                  />
+                </div>
+              </div>
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-[var(--on-surface-color)] mb-2"
+                  >Email address</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value="sofiachen@email.com"
+                  class="input-field"
+                />
+              </div>
+              <div>
+                <label
+                  for="phone"
+                  class="block text-sm font-medium text-[var(--on-surface-color)] mb-2"
+                  >Phone number</label
+                >
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value="+1 (555) 123-4567"
+                  class="input-field"
+                />
+              </div>
+              <div class="pt-2 flex justify-end gap-4">
+                <button
+                  type="button"
+                  class="rounded-full bg-[var(--accent-color)] px-6 py-3 text-sm font-bold text-white hover:bg-opacity-80 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="group relative flex justify-center rounded-full border border-transparent bg-[var(--primary-color)] px-6 py-3 text-sm font-bold text-black hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-offset-2 focus:ring-offset-[var(--surface-color)] transition-all"
+                >
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
