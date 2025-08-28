@@ -35,98 +35,21 @@
       Passenger Information
     </h2>
 
+    <h4 class="mb-8 text-3xl font-bold tracking-tighter text-white/80">Available Seats: {{ travel_option.available_seats }}</h4>
+
     <form method="POST" class="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2">
       {% csrf_token %}
       <div>
-        <label class="form-label" for="first-name">First Name</label>
+        <label class="form-label" for="number-of-seats">Number of Seats</label>
         <input
           class="form-input h-14 p-4"
-          id="first-name"
-          name="first_name"
-          type="text"
+          id="number-of-seats"
+          name="number_of_seats"
+          type="number"
           required
-        />
-      </div>
-
-      <div>
-        <label class="form-label" for="last-name">Last Name</label>
-        <input
-          class="form-input h-14 p-4"
-          id="last-name"
-          name="last_name"
-          type="text"
-          required
-        />
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="form-label" for="email">Email Address</label>
-        <input
-          class="form-input h-14 p-4"
-          id="email"
-          name="email"
-          type="email"
-          required
-        />
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="form-label" for="phone">Phone Number</label>
-        <input class="form-input h-14 p-4" id="phone" name="phone" type="tel" />
-      </div>
-
-      <div>
-        <label class="form-label" for="dob">Date of Birth</label>
-        <input class="form-input h-14 p-4" id="dob" name="dob" type="date" />
-      </div>
-
-      <div>
-        <label class="form-label" for="gender">Gender</label>
-        <select
-          class="form-input form-select h-14 p-4"
-          id="gender"
-          name="gender"
-        >
-          <option value="">Select Gender</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
-        </select>
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="form-label" for="nationality">Nationality</label>
-        <select
-          class="form-input form-select h-14 p-4"
-          id="nationality"
-          name="nationality"
-        >
-          <option value="">Select Nationality</option>
-          <option>United States</option>
-          <option>Canada</option>
-          <option>United Kingdom</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="form-label" for="passport">Passport Number</label>
-        <input
-          class="form-input h-14 p-4"
-          id="passport"
-          name="passport_number"
-          type="text"
-        />
-      </div>
-
-      <div>
-        <label class="form-label" for="passport-expiry"
-          >Passport Expiry Date</label
-        >
-        <input
-          class="form-input h-14 p-4"
-          id="passport-expiry"
-          name="passport_expiry"
-          type="date"
+          value="1"
+          min="1"
+          max="{{ travel_option.available_seats }}"
         />
       </div>
 
@@ -135,8 +58,11 @@
       >
         <div>
           <p class="text-sm text-[var(--text-secondary)]">Total Price</p>
-          <p class="text-3xl font-bold text-[var(--primary-color)]">
-            ${{ price }}
+          <p
+            class="text-3xl font-bold text-[var(--primary-color)]"
+            id="total-price"
+          >
+            ${{ travel_option.price }}
           </p>
         </div>
         <div class="flex items-center gap-4">
@@ -147,4 +73,15 @@
     </form>
   </div>
 </main>
+
+<script>
+  const seatsInput = document.getElementById("number-of-seats");
+  const priceDisplay = document.getElementById("total-price");
+  const pricePerSeat = {{ travel_option.price|floatformat:2 }};
+
+  seatsInput.addEventListener('change', () => {
+    const totalPrice = (seatsInput.value || 1) * pricePerSeat;
+    priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
+  })
+</script>
 {% endblock %}

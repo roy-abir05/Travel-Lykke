@@ -24,33 +24,40 @@
     <div class="divide-y divide-[var(--dark-border-color)]">
       {% for booking in bookings %}
       <div
-        class="flex items-start justify-between gap-8 rounded-xl bg-[var(--dark-bg-secondary)] p-6 transition-colors duration-300 hover:bg-[var(--dark-bg-tertiary)]"
+        class="flex items-start justify-between gap-8 rounded-xl bg-[var(--dark-bg-secondary)] p-6 transition-colors duration-300 hover:bg-[var(--dark-bg-tertiary)] mb-5"
       >
         <div class="flex flex-col gap-4">
           <div class="flex flex-col gap-2">
             <p class="text-white text-lg font-bold">
-              Booking ID: {{ booking.id }}
+              Booking ID: {{ booking.booking_id }}
             </p>
             <div class="text-[var(--neutral-300)] text-sm space-y-1">
               <p>
-                <strong>Route:</strong> {{ booking.travel_option.origin }} to {{
+                <strong>Route:</strong> {{ booking.travel_option.source }} to {{
                 booking.travel_option.destination }}
               </p>
               <p>
-                <strong>Date &amp; Time:</strong> {{ booking.travel_option.date
-                }} {{ booking.travel_option.time }}
+                <strong>Date &amp; Time:</strong> {{
+                booking.travel_option.departure_time|date:"M d, Y" }} {{
+                booking.travel_option.departure_time|date:"H:i A" }}
               </p>
-              <p><strong>Seats:</strong> {{ booking.seats }}</p>
-              <p><strong>Price:</strong> ${{ booking.travel_option.price }}</p>
+              <p><strong>Seats:</strong> {{ booking.number_of_seats }}</p>
+              <p><strong>Price:</strong> ${{ booking.total_price }}</p>
               <p>
                 <strong>Status:</strong>
                 <span class="text-[var(--brand-color)] font-semibold">
-                  {{ booking.status }}
+                  {% if booking.status == 'C' %}
+                    Confirmed
+                  {% elif booking.status == 'X' %}
+                    Cancelled
+                  {% else %}
+                    Unknown
+                  {% endif %}
                 </span>
               </p>
             </div>
           </div>
-          <form method="post" action="{% url 'cancel_booking' booking.id %}">
+          <form method="post" action="{% url 'cancel_booking' booking.booking_id %}">
             {% csrf_token %}
             <button
               type="submit"
