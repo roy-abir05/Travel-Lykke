@@ -1,0 +1,191 @@
+{% extends "base.html" %} {% block extra_head %}
+<style type="text/tailwindcss">
+  :root {
+    --primary-500: #fb3d6d;
+    --secondary-900: #0f172a;
+    --secondary-800: #1e293b;
+    --secondary-700: #334155;
+    --secondary-400: #94a3b8;
+  }
+  body {
+    font-family: "Spline Sans", sans-serif;
+  }
+</style>
+{% endblock %} {% block content %}
+<main
+  class="flex flex-1 items-start gap-8 px-4 py-8 md:px-10 lg:gap-12 lg:px-16"
+>
+  <!-- Sidebar Filters -->
+  <aside class="sticky top-8 hidden w-64 flex-col gap-8 lg:flex">
+    <div class="flex flex-col gap-4">
+      <h3 class="text-base font-semibold text-white">Travel Type</h3>
+      <div class="flex flex-col gap-2">
+        <label class="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked
+            class="form-checkbox h-4 w-4 rounded border-secondary-700 bg-secondary-900 text-primary-500 focus:ring-primary-500"
+          />
+          <span class="text-sm text-secondary-300">Flights</span>
+        </label>
+        <label class="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked
+            class="form-checkbox h-4 w-4 rounded border-secondary-700 bg-secondary-900 text-primary-500 focus:ring-primary-500"
+          />
+          <span class="text-sm text-secondary-300">Trains</span>
+        </label>
+        <label class="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked
+            class="form-checkbox h-4 w-4 rounded border-secondary-700 bg-secondary-900 text-primary-500 focus:ring-primary-500"
+          />
+          <span class="text-sm text-secondary-300">Buses</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <h3 class="text-base font-semibold text-white">Filters</h3>
+      <div class="flex flex-col gap-3">
+        <label class="flex flex-col gap-1.5">
+          <span class="text-sm font-medium text-secondary-300">From</span>
+          <input
+            type="text"
+            placeholder="e.g. New York"
+            class="form-input w-full rounded-full border-secondary-700 bg-secondary-900 px-4 py-2 text-sm text-white placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
+          />
+        </label>
+        <label class="flex flex-col gap-1.5">
+          <span class="text-sm font-medium text-secondary-300">To</span>
+          <input
+            type="text"
+            placeholder="e.g. Los Angeles"
+            class="form-input w-full rounded-full border-secondary-700 bg-secondary-900 px-4 py-2 text-sm text-white placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
+          />
+        </label>
+        <label class="flex flex-col gap-1.5">
+          <span class="text-sm font-medium text-secondary-300">Date</span>
+          <input
+            type="date"
+            class="form-input w-full rounded-full border-secondary-700 bg-secondary-900 px-4 py-2 text-sm text-white placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
+          />
+        </label>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Travel Options List -->
+  <div class="flex flex-1 flex-col gap-6">
+    <!-- Search + Sort -->
+    <div class="flex flex-col gap-4">
+      <div class="relative w-full">
+        <svg
+          class="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-secondary-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <input
+          type="text"
+          placeholder="Search for flights, trains, buses..."
+          class="form-input w-full rounded-full border-secondary-800 bg-secondary-900 py-3 pl-11 pr-4 text-base text-white placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
+        />
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-medium text-secondary-300">Sort by:</span>
+          <button
+            class="rounded-full bg-secondary-800 px-3 py-1 text-sm font-medium text-white"
+          >
+            Best
+          </button>
+          <button
+            class="rounded-full px-3 py-1 text-sm font-medium text-secondary-400 hover:bg-secondary-800 hover:text-white"
+          >
+            Cheapest
+          </button>
+          <button
+            class="rounded-full px-3 py-1 text-sm font-medium text-secondary-400 hover:bg-secondary-800 hover:text-white"
+          >
+            Fastest
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Travel Cards -->
+    <div class="grid grid-cols-1 gap-6">
+      {% for option in travel_options %}
+      <div
+        class="flex flex-col gap-4 rounded-2xl bg-secondary-900 p-4 hover:bg-secondary-800"
+      >
+        <div class="flex flex-1 flex-col gap-3">
+          <div class="flex items-center gap-3">
+            <span
+              class="rounded-full bg-secondary-800 px-3 py-1 text-xs font-medium text-primary-300"
+              >{{ option.type }}</span
+            >
+            <p class="text-sm font-medium text-white">{{ option.operator }}</p>
+          </div>
+          <div class="flex flex-col">
+            <p class="text-base font-semibold text-secondary-50">
+              {{ option.origin }} to {{ option.destination }}
+            </p>
+            <p class="text-sm text-secondary-400">
+              {{ option.date }} · {{ option.time }}
+            </p>
+          </div>
+          <div class="flex items-center gap-4">
+            <p class="text-lg font-bold text-primary-400">
+              ${{ option.price }}
+            </p>
+            <p class="text-sm text-secondary-400">
+              {{ option.seats_left }} seats left
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <a
+            href="{% url 'book_travel' option.id %}"
+            class="w-full rounded-full bg-primary-500 px-6 py-2.5 text-sm font-bold text-white hover:bg-primary-600 text-center"
+          >
+            Book Now
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-secondary-400">No travel options found.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex items-center justify-center p-4">
+      {% if page_obj.has_previous %}
+      <a
+        href="?page={{ page_obj.previous_page_number }}"
+        class="px-3 py-1 text-sm rounded-full bg-secondary-800 text-white"
+        >Previous</a
+      >
+      {% endif %}
+
+      <span class="px-3 py-1 text-sm rounded-full bg-primary-500 text-white"
+        >{{ page_obj.number }}</span
+      >
+
+      {% if page_obj.has_next %}
+      <a
+        href="?page={{ page_obj.next_page_number }}"
+        class="px-3 py-1 text-sm rounded-full bg-secondary-800 text-white"
+        >Next</a
+      >
+      {% endif %}
+    </div>
+  </div>
+</main>
+{% endblock %}

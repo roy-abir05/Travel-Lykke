@@ -1,0 +1,157 @@
+{% extends "base.html" %} {% block content %}
+<main class="flex flex-1 justify-center px-4 py-8 sm:px-10 lg:px-20 xl:px-40">
+  <div class="grid w-full max-w-screen-xl grid-cols-1 gap-8 lg:grid-cols-3">
+    <!-- Left content: Itinerary details -->
+    <div class="lg:col-span-2">
+      <div class="space-y-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center text-sm font-medium">
+          <a class="text-[var(--text-secondary)] hover:text-white" href="#"
+            >London</a
+          >
+          <span class="mx-2 text-[var(--text-secondary)]">/</span>
+          <span class="text-white">Paris</span>
+        </nav>
+
+        <!-- Main option -->
+        <div class="rounded-2xl bg-[var(--card-background)] p-6 shadow-lg">
+          <h2 class="mb-1 text-2xl font-bold">{{ option.title }}</h2>
+          <p class="mb-6 font-medium text-[var(--text-secondary)]">
+            Outbound Flight
+          </p>
+
+          <div class="flex flex-col gap-6 sm:flex-row">
+            <div class="flex-grow space-y-3">
+              <p class="text-lg font-bold">
+                {{ option.departure_time }} — {{ option.arrival_time }}
+              </p>
+              <p class="text-[var(--text-secondary)]">{{ option.duration }}</p>
+              <div
+                class="inline-flex items-center gap-2 rounded-full bg-[var(--border-color)] px-3 py-1 text-sm font-medium"
+              >
+                {{ option.provider }}
+              </div>
+            </div>
+            {% if option.image %}
+            <div
+              class="aspect-video w-full flex-shrink-0 rounded-xl bg-cover bg-center sm:w-56"
+              style="background-image: url('{{ option.image.url }}');"
+            ></div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- More options -->
+        <div class="space-y-6">
+          <h3 class="text-xl font-bold">More Options</h3>
+
+          {% for alt in option.alternatives.all %}
+          <div
+            class="flex flex-col gap-4 rounded-2xl bg-[var(--card-background)] p-4 shadow-lg sm:flex-row sm:items-center"
+          >
+            <div class="flex-grow space-y-2">
+              <p class="font-semibold">
+                {{ alt.departure_time }} — {{ alt.arrival_time }}
+                <span class="text-[var(--text-secondary)]"
+                  >({{ alt.duration }})</span
+                >
+              </p>
+              <p class="text-sm text-[var(--text-secondary)]">
+                {{ alt.provider }}
+              </p>
+            </div>
+            {% if alt.image %}
+            <div class="w-full flex-shrink-0 sm:w-32">
+              <div
+                class="aspect-video w-full rounded-lg bg-cover bg-center"
+                style="background-image: url('{{ alt.image.url }}');"
+              ></div>
+            </div>
+            {% endif %}
+            <p class="flex-shrink-0 text-lg font-bold">${{ alt.price }}</p>
+            <button
+              class="w-full rounded-full bg-[var(--border-color)] py-2 text-sm font-bold text-white transition hover:bg-opacity-80 sm:w-auto sm:px-4"
+            >
+              Select
+            </button>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right content: Fare and policies -->
+    <aside class="lg:col-span-1">
+      <div class="sticky top-28 space-y-6">
+        <!-- Fare breakdown -->
+        <div class="rounded-2xl bg-[var(--card-background)] p-6 shadow-lg">
+          <h3 class="mb-4 text-xl font-bold">Fare Breakdown</h3>
+          <div class="space-y-3 border-t border-[var(--border-color)] pt-4">
+            <div class="flex justify-between text-sm">
+              <p class="text-[var(--text-secondary)]">Base fare</p>
+              <p>${{ option.base_fare }}</p>
+            </div>
+            <div class="flex justify-between text-sm">
+              <p class="text-[var(--text-secondary)]">Taxes and fees</p>
+              <p>${{ option.taxes }}</p>
+            </div>
+          </div>
+          <div
+            class="mt-4 flex justify-between border-t border-[var(--border-color)] pt-4 text-lg font-bold"
+          >
+            <p>Total</p>
+            <p>${{ option.total_price }}</p>
+          </div>
+        </div>
+
+        <!-- Policies -->
+        <div class="rounded-2xl bg-[var(--card-background)] p-6 shadow-lg">
+          <h3 class="mb-4 text-xl font-bold">Policies</h3>
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-semibold">Cancellation Policy</h4>
+              <p class="text-sm text-[var(--text-secondary)]">
+                {{ option.cancellation_policy }}
+              </p>
+            </div>
+            <div>
+              <h4 class="font-semibold">Baggage Allowance</h4>
+              <p class="text-sm text-[var(--text-secondary)]">
+                {{ option.baggage_allowance }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Call to action -->
+        <div
+          class="rounded-2xl border-2 border-dashed border-[var(--primary-color)] bg-[var(--card-background)] p-6 text-center shadow-lg"
+        >
+          <h3 class="mb-2 text-lg font-bold text-[var(--primary-color)]">
+            Limited Seats!
+          </h3>
+          <p class="text-sm text-[var(--text-secondary)]">
+            This price is selling fast. Book now to secure your fare before it
+            increases.
+          </p>
+        </div>
+
+        <div class="mt-8 flex flex-col gap-4">
+          <a
+            href="{% url 'bookings:create' option.pk %}"
+            class="w-full rounded-full bg-[var(--primary-color)] py-3 text-base font-bold text-white transition hover:bg-opacity-90 text-center"
+          >
+            Continue to Booking
+          </a>
+          <a
+            href="{% url 'travel_options' %}"
+            class="w-full rounded-full border border-[var(--border-color)] py-3 text-base font-bold text-white transition hover:bg-[var(--border-color)] text-center"
+          >
+            Back
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+{% endblock %}
