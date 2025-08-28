@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+from .forms import CustomUserCreationForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def register(request):
     print("Register view called", request.method)
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             messages.success(request, f'Account created for {user.username}! You can now log in.')
@@ -15,9 +15,28 @@ def register(request):
         else:
             messages.error(request, 'Please correct the error below\n{}'.format(form.errors))
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'users/register.html', {'form': form})
 
 @login_required
 def profile_view(request):
-    return render(request, "users/profile.html")
+    if request.method == 'POST':
+        user = request.user
+        profile = user.profile
+
+        # Update User fields
+        user.first_name = request.POST.get('first_name', user.first_name)
+        user.last_name = request.POST.get('last_name', user.last_name)
+        user.email = request.POST.get('email', user.email)
+        user.save()
+
+        # Update Profile fields
+        profile.phone_number = request.POST.get('phone_number', profile.phone_number)
+        if 'profile_image' in request.FILES:
+            profile.profile_image = request.FILES['profile_image']
+        profile.save()
+
+        messages.success(request, 'Your profile has been updated!')
+        return redirect('profile')
+
+    return render(request, 'users/profile.html')

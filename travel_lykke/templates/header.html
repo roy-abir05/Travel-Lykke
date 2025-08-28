@@ -1,3 +1,4 @@
+{% load static %}
 <header
   class="sticky top-0 z-50 bg-[var(--background-color)]/80 backdrop-blur-sm"
 >
@@ -36,7 +37,14 @@
       </nav>
       <div class="flex items-center gap-4">
         {% if user.is_authenticated %}
-        <img src="/hero.png" alt="User avatar" class="size-10 rounded-full" />
+
+        <a href="{% url 'profile' %}">
+          <img
+            src="{% if user.profile.profile_image %}{{ user.profile.profile_image.url }}{% else %}{% static 'UserIcon.png' %}{% endif %}"
+            alt="User avatar"
+            class="size-10 rounded-full"
+          />
+        </a>
         <a
           href="{% url 'my_bookings' %}"
           class="hover:text-[var(--brand-color)]"

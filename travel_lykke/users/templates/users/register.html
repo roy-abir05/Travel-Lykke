@@ -29,52 +29,84 @@
       </p>
     </div>
 
-    <form method="POST" class="space-y-6">
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
       {% csrf_token %}
-      <div>
-        <label class="sr-only" for="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Username"
-          required
-          class="input-field"
-        />
+
+      <!-- Username -->
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        required
+        class="input-field"
+      />
+
+      <!-- First Name -->
+      <input
+        type="text"
+        name="first_name"
+        placeholder="First Name"
+        required
+        class="input-field"
+      />
+
+      <!-- First Name -->
+      <input
+        type="text"
+        name="last_name"
+        placeholder="Last Name"
+        required
+        class="input-field"
+      />
+
+      <!-- Email -->
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        class="input-field"
+      />
+
+      <!-- Phone -->
+      <input
+        type="text"
+        name="phone_number"
+        placeholder="Phone Number"
+        required
+        class="input-field"
+      />
+
+      <!-- Profile Image -->
+      <div class="flex flex-col">
+        <label for="profile_image">Profile Image (Optional):</label>
+        <input type="file" name="profile_image" class="input-field" />
       </div>
 
-      <div>
-        <label class="sr-only" for="password">Password</label>
-        <input
-          type="password"
-          name="password1"
-          id="password"
-          placeholder="Password"
-          required
-          class="input-field"
-        />
-      </div>
+      <!-- Password -->
+      <input
+        type="password"
+        name="password1"
+        placeholder="Password"
+        required
+        class="input-field"
+      />
 
-      <div>
-        <label class="sr-only" for="confirm-password">Confirm password</label>
-        <input
-          type="password"
-          name="password2"
-          id="confirm-password"
-          placeholder="Confirm password"
-          required
-          class="input-field"
-        />
-      </div>
+      <!-- Confirm Password -->
+      <input
+        type="password"
+        name="password2"
+        placeholder="Confirm Password"
+        required
+        class="input-field"
+      />
 
-      <div>
-        <button
-          type="submit"
-          class="group relative flex w-full justify-center rounded-full border border-transparent bg-[var(--primary-color)] px-4 py-3 text-sm font-bold text-black hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-offset-2 focus:ring-offset-[var(--surface-color)] transition-all"
-        >
-          Create account
-        </button>
-      </div>
+      <button
+        type="submit"
+        class="group relative flex w-full justify-center rounded-full bg-[var(--primary-color)] px-4 py-3 text-sm font-bold text-black"
+      >
+        Create account
+      </button>
     </form>
 
     <div class="text-center text-sm text-[var(--on-surface-color)]">
