@@ -6,7 +6,7 @@ from .models import TravelOption
 
 def travel_options(request):
     options = TravelOption.objects.all()
-    return render(request, 'travel_options/travel_options.html', {"options": options})
+    return render(request, 'travel_options/travel_options.html', {"travel_options": options})
 
 def travel_option_details(request, pk):
     option = get_object_or_404(TravelOption, pk=pk)

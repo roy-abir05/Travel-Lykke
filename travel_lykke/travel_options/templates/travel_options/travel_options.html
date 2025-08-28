@@ -120,48 +120,83 @@
     </div>
 
     <!-- Travel Cards -->
-    <div class="grid grid-cols-1 gap-6">
+    <div class="grid grid-cols-2 gap-6 px-[5%]">
       {% for option in travel_options %}
-      <div
-        class="flex flex-col gap-4 rounded-2xl bg-secondary-900 p-4 hover:bg-secondary-800"
-      >
-        <div class="flex flex-1 flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <span
-              class="rounded-full bg-secondary-800 px-3 py-1 text-xs font-medium text-primary-300"
-              >{{ option.type }}</span
-            >
-            <p class="text-sm font-medium text-white">{{ option.operator }}</p>
-          </div>
-          <div class="flex flex-col">
-            <p class="text-base font-semibold text-secondary-50">
-              {{ option.origin }} to {{ option.destination }}
-            </p>
-            <p class="text-sm text-secondary-400">
-              {{ option.date }} · {{ option.time }}
-            </p>
-          </div>
-          <div class="flex items-center gap-4">
-            <p class="text-lg font-bold text-primary-400">
-              ${{ option.price }}
-            </p>
-            <p class="text-sm text-secondary-400">
-              {{ option.seats_left }} seats left
-            </p>
-          </div>
+      <div class="w-[70vw] h-[25vh] flex items-center justify-evenly">
+        <div class="w-[200px] h-[200px] overflow-hidden">
+          {% if option.type == 'F' %}
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb2_4M0fURFjVbR9QCTMFXPUcD0JDrQewZ0IvjyXvbuApzSK7EUMZHVD3SquPZ0LXaRdTGKwHuB6PrVy1I_NcDKkpFXGt1_IcfA8nLCCJ9RWc8-hOADiSSnF1fcugDrFUm6DZflg1ydInfClM1fgSh89dQNlrkXkJm8iFqoclbRMEQwRdD3FPrO4N4uGDVW4sZObx6toR_5sjHKvn7XImnswzWmVsBN79VMBoyfZctWcuas8btMOOFKC1RharrC5EsTyn8hVBGtJwc"
+              alt="Flight" class="w-full h-full object-contain"
+            />
+          {% elif option.type == 'T' %}
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeV-CCPbyZWSuHjJBVeLgf4s_vVQfz-PqF_fppEyTfDdXA5y7PneNOT_gaB74id_3TnaWQG01y_ebtgCZMGfjYwXnDcl5IFHHfO-toLwrvDU9-q8wzllS3XugVVWchhzJVjiN2qNQxsOhTjfTGFIENf_3hN2MpFs39PArLiUarPGO9O3X9wWYjI9H1zNmOjwQkCxJki3Y2QSpuQ1zwO1TRdmDh5fa84QFKyrMXxu8GqvP9C1Acuf34wX2aISVL3J_vde2IB6Q0ZTp5"
+              alt="Train" class="w-full h-full object-contain"
+            />
+          {% elif option.type == 'B' %}
+            <img
+              src="https://as1.ftcdn.net/v2/jpg/16/23/04/98/1000_F_1623049846_OhvcTcMCzkHBJk40KmvTZxcTFBsAbA0i.jpg"
+              alt="Bus" class="w-full h-full object-contain"
+            />
+          {% endif %}
         </div>
-        <div class="flex items-center gap-4">
-          <a
-            href="{% url 'book_travel' option.id %}"
-            class="w-full rounded-full bg-primary-500 px-6 py-2.5 text-sm font-bold text-white hover:bg-primary-600 text-center"
+        <div
+          class="w-[65%] h-full flex flex-col gap-4 rounded-2xl bg-secondary-900 p-4 hover:bg-secondary-800"
+        >
+          <div class="flex flex-1 flex-col gap-3">
+            <div class="flex items-center gap-3">
+              <span
+                class="rounded-full bg-secondary-800 px-3 py-1 text-xs font-medium text-primary-300"
+              >
+                {% if option.type == 'F' %}
+                  Flight
+                {% elif option.type == 'T' %}
+                  Train
+                {% elif option.type == 'B' %}
+                  Bus
+                {% else %}
+                  Unknown
+                {% endif %}
+              </span>
+            </div>
+            <div class="flex flex-col">
+              <p class="text-base font-semibold text-secondary-50">
+                {{ option.source }} to {{ option.destination }}
+              </p>
+              <p class="text-sm text-secondary-400">
+                Departure: {{ option.departure_time|date:"M d, Y" }} · {{
+                option.departure_time|time:"h:i A" }}
+              </p>
+              <p class="text-sm text-secondary-400">
+                Arrival: {{ option.arrival_time|date:"M d, Y" }} · {{
+                option.arrival_time|time:"h:i A" }}
+              </p>
+            </div>
+            <div class="flex items-center gap-4">
+              <p class="text-lg font-bold text-primary-400">
+                ${{ option.price }}
+              </p>
+              <p class="text-sm text-secondary-400">
+                {{ option.seats_left }} seats left
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-4 @[400px]:flex-col @[400px]:items-end"
           >
-            Book Now
-          </a>
+            <a
+              href="{% url 'travel_option_details' option.travel_id %}"
+              class="w-full rounded-full bg-primary-500 px-6 py-2.5 text-sm font-bold text-white transition-colors hover:bg-primary-600 @[400px]:w-auto"
+            >
+              Book Now
+            </a>
+          </div>
         </div>
+        {% empty %}
+        <p class="text-secondary-400">No travel options found.</p>
+        {% endfor %}
       </div>
-      {% empty %}
-      <p class="text-secondary-400">No travel options found.</p>
-      {% endfor %}
     </div>
 
     <!-- Pagination -->
