@@ -1,4 +1,14 @@
 {% load static %}
+{% block extra_head %}
+<style type="text/tailwindcss">
+  .btn-primary {
+    @apply flex min-w-[120px] items-center justify-center rounded-full h-12 px-6 bg-[#fb3d6d] text-white text-base font-bold tracking-wide hover:brightness-110 transition-all;
+  }
+  .btn-secondary {
+    @apply flex min-w-[120px] items-center justify-center rounded-full h-12 px-6 bg-[#4d1829] text-white text-base font-bold tracking-wide hover:bg-opacity-80 transition-all;
+  }
+</style>
+{% endblock %}
 <header
   class="sticky top-0 z-50 bg-[var(--background-color)]/80 backdrop-blur-sm"
 >
@@ -53,12 +63,12 @@
         {% else %}
         <a
           href="{% url 'login' %}"
-          class="text-sm font-medium hover:text-[var(--primary-color)]"
+          class="text-sm font-medium hover:text-[var(--primary-color)] btn-secondary"
           >Login</a
         >
         <a
           href="{% url 'register' %}"
-          class="primary-cta px-4 py-2 rounded-full text-sm"
+          class="primary-cta px-4 py-2 rounded-full text-sm btn-primary"
           >Sign Up</a
         >
         {% endif %}
