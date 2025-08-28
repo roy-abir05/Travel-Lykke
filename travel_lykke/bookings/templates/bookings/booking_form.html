@@ -1,0 +1,150 @@
+{% extends "base.html" %} {% block extra_head %}
+<style type="text/tailwindcss">
+  :root {
+    --primary-color: #fb3d6d;
+    --secondary-color: #4d1829;
+    --background-color: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #f3c5d5;
+    --input-bg: #212121;
+    --border-color: #4d1829;
+  }
+  body {
+    font-family: "Spline Sans", sans-serif;
+  }
+  .form-input {
+    @apply w-full rounded-lg border-none bg-[var(--input-bg)] text-white placeholder:text-[var(--text-secondary)] focus:ring-2 focus:ring-[var(--primary-color)] transition-shadow duration-200;
+  }
+  .form-label {
+    @apply text-sm font-medium text-[var(--text-primary)] mb-2;
+  }
+  .form-select {
+    @apply appearance-none;
+  }
+  .btn-primary {
+    @apply flex min-w-[120px] items-center justify-center rounded-full h-12 px-6 bg-[var(--primary-color)] text-white text-base font-bold tracking-wide hover:brightness-110 transition-all;
+  }
+  .btn-secondary {
+    @apply flex min-w-[120px] items-center justify-center rounded-full h-12 px-6 bg-[var(--secondary-color)] text-[var(--text-primary)] text-base font-bold tracking-wide hover:bg-opacity-80 transition-all;
+  }
+</style>
+{% endblock %} {% block content %}
+<main class="container mx-auto flex-grow px-4 py-8 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-4xl">
+    <h2 class="mb-8 text-4xl font-bold tracking-tight">
+      Passenger Information
+    </h2>
+
+    <form method="POST" class="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2">
+      {% csrf_token %}
+      <div>
+        <label class="form-label" for="first-name">First Name</label>
+        <input
+          class="form-input h-14 p-4"
+          id="first-name"
+          name="first_name"
+          type="text"
+          required
+        />
+      </div>
+
+      <div>
+        <label class="form-label" for="last-name">Last Name</label>
+        <input
+          class="form-input h-14 p-4"
+          id="last-name"
+          name="last_name"
+          type="text"
+          required
+        />
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="form-label" for="email">Email Address</label>
+        <input
+          class="form-input h-14 p-4"
+          id="email"
+          name="email"
+          type="email"
+          required
+        />
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="form-label" for="phone">Phone Number</label>
+        <input class="form-input h-14 p-4" id="phone" name="phone" type="tel" />
+      </div>
+
+      <div>
+        <label class="form-label" for="dob">Date of Birth</label>
+        <input class="form-input h-14 p-4" id="dob" name="dob" type="date" />
+      </div>
+
+      <div>
+        <label class="form-label" for="gender">Gender</label>
+        <select
+          class="form-input form-select h-14 p-4"
+          id="gender"
+          name="gender"
+        >
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="form-label" for="nationality">Nationality</label>
+        <select
+          class="form-input form-select h-14 p-4"
+          id="nationality"
+          name="nationality"
+        >
+          <option value="">Select Nationality</option>
+          <option>United States</option>
+          <option>Canada</option>
+          <option>United Kingdom</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="form-label" for="passport">Passport Number</label>
+        <input
+          class="form-input h-14 p-4"
+          id="passport"
+          name="passport_number"
+          type="text"
+        />
+      </div>
+
+      <div>
+        <label class="form-label" for="passport-expiry"
+          >Passport Expiry Date</label
+        >
+        <input
+          class="form-input h-14 p-4"
+          id="passport-expiry"
+          name="passport_expiry"
+          type="date"
+        />
+      </div>
+
+      <div
+        class="md:col-span-2 flex justify-between border-t border-[var(--border-color)] pt-8"
+      >
+        <div>
+          <p class="text-sm text-[var(--text-secondary)]">Total Price</p>
+          <p class="text-3xl font-bold text-[var(--primary-color)]">
+            ${{ price }}
+          </p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="{% url 'travel_options' %}" class="btn-secondary">Cancel</a>
+          <button type="submit" class="btn-primary">Confirm &amp; Pay</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}
