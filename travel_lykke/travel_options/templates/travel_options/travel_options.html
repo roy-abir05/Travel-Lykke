@@ -17,128 +17,102 @@
 >
   <!-- Sidebar Filters -->
   <aside class="sticky top-8 hidden w-64 flex-col gap-8 lg:flex">
-    <div class="flex flex-col gap-4">
-      <h3 class="text-base font-semibold text-white">Travel Type</h3>
-      <div class="flex flex-col gap-2">
-        <label class="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked
-            class="form-checkbox h-4 w-4 rounded border-secondary-700 bg-secondary-900 text-primary-500 focus:ring-primary-500"
-          />
-          <span class="text-sm text-secondary-300">Flights</span>
-        </label>
-        <label class="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked
-            class="form-checkbox h-4 w-4 rounded border-secondary-700 bg-secondary-900 text-primary-500 focus:ring-primary-500"
-          />
-          <span class="text-sm text-secondary-300">Trains</span>
-        </label>
-        <label class="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked
-            class="form-checkbox h-4 w-4 rounded border-secondary-700 bg-secondary-900 text-primary-500 focus:ring-primary-500"
-          />
-          <span class="text-sm text-secondary-300">Buses</span>
-        </label>
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-4">
-      <h3 class="text-base font-semibold text-white">Filters</h3>
-      <div class="flex flex-col gap-3">
-        <label class="flex flex-col gap-1.5">
-          <span class="text-sm font-medium text-secondary-300">From</span>
-          <input
-            type="text"
-            placeholder="e.g. New York"
-            class="form-input w-full rounded-full border-secondary-700 bg-secondary-900 px-4 py-2 text-sm text-white placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
-          />
-        </label>
-        <label class="flex flex-col gap-1.5">
-          <span class="text-sm font-medium text-secondary-300">To</span>
-          <input
-            type="text"
-            placeholder="e.g. Los Angeles"
-            class="form-input w-full rounded-full border-secondary-700 bg-secondary-900 px-4 py-2 text-sm text-white placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
-          />
-        </label>
-        <label class="flex flex-col gap-1.5">
-          <span class="text-sm font-medium text-secondary-300">Date</span>
-          <input
-            type="date"
-            class="form-input w-full rounded-full border-secondary-700 bg-secondary-900 px-4 py-2 text-sm text-white placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
-          />
-        </label>
-      </div>
-    </div>
-  </aside>
-
-  <!-- Travel Options List -->
-  <div class="flex flex-1 flex-col gap-6">
-    <!-- Search + Sort -->
-    <div class="flex flex-col gap-4">
-      <div class="relative w-full">
-        <svg
-          class="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-secondary-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.3-4.3"></path>
-        </svg>
-        <input
-          type="text"
-          placeholder="Search for flights, trains, buses..."
-          class="form-input w-full rounded-full border-secondary-800 bg-secondary-900 py-3 pl-11 pr-4 text-base text-white placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
-        />
-      </div>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="text-sm font-medium text-secondary-300">Sort by:</span>
-          <button
-            class="rounded-full bg-secondary-800 px-3 py-1 text-sm font-medium text-white"
-          >
-            Best
-          </button>
-          <button
-            class="rounded-full px-3 py-1 text-sm font-medium text-secondary-400 hover:bg-secondary-800 hover:text-white"
-          >
-            Cheapest
-          </button>
-          <button
-            class="rounded-full px-3 py-1 text-sm font-medium text-secondary-400 hover:bg-secondary-800 hover:text-white"
-          >
-            Fastest
-          </button>
+    <form method="get" class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4">
+        <h3 class="text-base font-semibold text-white">Travel Type</h3>
+        <div class="flex flex-col gap-2">
+          <label class="flex items-center gap-2">
+            <input
+              type="checkbox"
+              name="type"
+              value="F"
+              class="form-checkbox ..."
+            />
+            <span class="text-sm text-secondary-300">Flights</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input
+              type="checkbox"
+              name="type"
+              value="T"
+              class="form-checkbox ..."
+            />
+            <span class="text-sm text-secondary-300">Trains</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input
+              type="checkbox"
+              name="type"
+              value="B"
+              class="form-checkbox ..."
+            />
+            <span class="text-sm text-secondary-300">Buses</span>
+          </label>
         </div>
       </div>
-    </div>
 
+      <div class="flex flex-col gap-4">
+        <h3 class="text-base font-semibold text-white">Filters</h3>
+        <div class="flex flex-col gap-3">
+          <label class="flex flex-col gap-1.5">
+            <span class="text-sm font-medium text-secondary-300">From</span>
+            <input
+              type="text"
+              name="source"
+              placeholder="e.g. New York"
+              class="form-input w-full rounded-full border-secondary-700 bg-secondary-900 px-4 py-2 text-sm text-black placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
+            />
+          </label>
+          <label class="flex flex-col gap-1.5">
+            <span class="text-sm font-medium text-secondary-300">To</span>
+            <input
+              type="text"
+              name="destination"
+              placeholder="e.g. Los Angeles"
+              class="form-input w-full rounded-full border-secondary-700 bg-secondary-900 px-4 py-2 text-sm text-black placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
+            />
+          </label>
+          <label class="flex flex-col gap-1.5">
+            <span class="text-sm font-medium text-secondary-300">Date</span>
+            <input
+              type="date"
+              name="date"
+              class="form-input w-full rounded-full border-secondary-700 bg-secondary-900 px-4 py-2 text-sm text-black placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500"
+            />
+          </label>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="rounded-full bg-[var(--primary-500)] px-4 py-2 text-white"
+      >
+        Apply Filters
+      </button>
+    </form>
+  </aside>
     <!-- Travel Cards -->
     <div class="grid grid-cols-2 gap-6 px-[5%]">
       {% for option in travel_options %}
       <div class="w-[70vw] h-[25vh] flex items-center justify-evenly">
         <div class="w-[200px] h-[200px] overflow-hidden">
           {% if option.type == 'F' %}
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb2_4M0fURFjVbR9QCTMFXPUcD0JDrQewZ0IvjyXvbuApzSK7EUMZHVD3SquPZ0LXaRdTGKwHuB6PrVy1I_NcDKkpFXGt1_IcfA8nLCCJ9RWc8-hOADiSSnF1fcugDrFUm6DZflg1ydInfClM1fgSh89dQNlrkXkJm8iFqoclbRMEQwRdD3FPrO4N4uGDVW4sZObx6toR_5sjHKvn7XImnswzWmVsBN79VMBoyfZctWcuas8btMOOFKC1RharrC5EsTyn8hVBGtJwc"
-              alt="Flight" class="w-full h-full object-contain"
-            />
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb2_4M0fURFjVbR9QCTMFXPUcD0JDrQewZ0IvjyXvbuApzSK7EUMZHVD3SquPZ0LXaRdTGKwHuB6PrVy1I_NcDKkpFXGt1_IcfA8nLCCJ9RWc8-hOADiSSnF1fcugDrFUm6DZflg1ydInfClM1fgSh89dQNlrkXkJm8iFqoclbRMEQwRdD3FPrO4N4uGDVW4sZObx6toR_5sjHKvn7XImnswzWmVsBN79VMBoyfZctWcuas8btMOOFKC1RharrC5EsTyn8hVBGtJwc"
+            alt="Flight"
+            class="w-full h-full object-contain"
+          />
           {% elif option.type == 'T' %}
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeV-CCPbyZWSuHjJBVeLgf4s_vVQfz-PqF_fppEyTfDdXA5y7PneNOT_gaB74id_3TnaWQG01y_ebtgCZMGfjYwXnDcl5IFHHfO-toLwrvDU9-q8wzllS3XugVVWchhzJVjiN2qNQxsOhTjfTGFIENf_3hN2MpFs39PArLiUarPGO9O3X9wWYjI9H1zNmOjwQkCxJki3Y2QSpuQ1zwO1TRdmDh5fa84QFKyrMXxu8GqvP9C1Acuf34wX2aISVL3J_vde2IB6Q0ZTp5"
-              alt="Train" class="w-full h-full object-contain"
-            />
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeV-CCPbyZWSuHjJBVeLgf4s_vVQfz-PqF_fppEyTfDdXA5y7PneNOT_gaB74id_3TnaWQG01y_ebtgCZMGfjYwXnDcl5IFHHfO-toLwrvDU9-q8wzllS3XugVVWchhzJVjiN2qNQxsOhTjfTGFIENf_3hN2MpFs39PArLiUarPGO9O3X9wWYjI9H1zNmOjwQkCxJki3Y2QSpuQ1zwO1TRdmDh5fa84QFKyrMXxu8GqvP9C1Acuf34wX2aISVL3J_vde2IB6Q0ZTp5"
+            alt="Train"
+            class="w-full h-full object-contain"
+          />
           {% elif option.type == 'B' %}
-            <img
-              src="https://as1.ftcdn.net/v2/jpg/16/23/04/98/1000_F_1623049846_OhvcTcMCzkHBJk40KmvTZxcTFBsAbA0i.jpg"
-              alt="Bus" class="w-full h-full object-contain"
-            />
+          <img
+            src="https://as1.ftcdn.net/v2/jpg/16/23/04/98/1000_F_1623049846_OhvcTcMCzkHBJk40KmvTZxcTFBsAbA0i.jpg"
+            alt="Bus"
+            class="w-full h-full object-contain"
+          />
           {% endif %}
         </div>
         <div
@@ -150,13 +124,13 @@
                 class="rounded-full bg-secondary-800 px-3 py-1 text-xs font-medium text-primary-300"
               >
                 {% if option.type == 'F' %}
-                  Flight
+                Flight
                 {% elif option.type == 'T' %}
-                  Train
+                Train
                 {% elif option.type == 'B' %}
-                  Bus
+                Bus
                 {% else %}
-                  Unknown
+                Unknown
                 {% endif %}
               </span>
             </div>
@@ -165,10 +139,12 @@
                 {{ option.source }} to {{ option.destination }}
               </p>
               <p class="text-sm text-secondary-400">
-                Departure: {{ option.departure_time|date:"M d, Y" }} · {{ option.departure_time|date:"h:i A" }}
+                Departure: {{ option.departure_time|date:"M d, Y" }} · {{
+                option.departure_time|date:"h:i A" }}
               </p>
               <p class="text-sm text-secondary-400">
-                Arrival: {{ option.arrival_time|date:"M d, Y" }} · {{ option.arrival_time|date:"h:i A" }}
+                Arrival: {{ option.arrival_time|date:"M d, Y" }} · {{
+                option.arrival_time|date:"h:i A" }}
               </p>
             </div>
             <div class="flex items-center gap-4">
