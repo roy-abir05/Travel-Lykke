@@ -165,12 +165,10 @@
                 {{ option.source }} to {{ option.destination }}
               </p>
               <p class="text-sm text-secondary-400">
-                Departure: {{ option.departure_time|date:"M d, Y" }} · {{
-                option.departure_time|time:"h:i A" }}
+                Departure: {{ option.departure_time|date:"M d, Y" }} · {{ option.departure_time|date:"h:i A" }}
               </p>
               <p class="text-sm text-secondary-400">
-                Arrival: {{ option.arrival_time|date:"M d, Y" }} · {{
-                option.arrival_time|time:"h:i A" }}
+                Arrival: {{ option.arrival_time|date:"M d, Y" }} · {{ option.arrival_time|date:"h:i A" }}
               </p>
             </div>
             <div class="flex items-center gap-4">
@@ -178,7 +176,7 @@
                 ${{ option.price }}
               </p>
               <p class="text-sm text-secondary-400">
-                {{ option.seats_left }} seats left
+                {{ option.available_seats }} seats left
               </p>
             </div>
           </div>
