@@ -21,152 +21,89 @@
         Search millions of flights, trains, and buses to find the best way to
         travel.
       </p>
-
-      <!-- Search Form -->
-      <div
-        class="mt-10 max-w-4xl mx-auto bg-[var(--surface-color)]/80 backdrop-blur-sm p-4 rounded-2xl"
-      >
-        <form class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-          <div
-            class="col-span-1 md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4"
-          >
-            <input
-              type="text"
-              placeholder="From: city or airport"
-              class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-[var(--primary-color)] placeholder:text-[var(--on-surface-variant-color)] py-3 text-white"
-            />
-
-            <input
-              type="text"
-              placeholder="To: city or airport"
-              class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-[var(--primary-color)] placeholder:text-[var(--on-surface-variant-color)] py-3 text-white"
-            />
-
-            <input
-              type="date"
-              class="w-full bg-transparent border-0 border-b-2 border-white/20 focus:ring-0 focus:border-[var(--primary-color)] text-[var(--on-surface-variant-color)] py-2.5"
-            />
-          </div>
-
-          <button
-            type="submit"
-            class="primary-cta w-full h-12 rounded-full font-bold text-lg flex items-center justify-center gap-2 transition-transform hover:scale-105"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-            >
-              <path
-                d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31
-                       l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,
-                       72,72A72.08,72.08,0,0,1,40,112Z"
-              ></path>
-            </svg>
-            <span>Find Trips</span>
-          </button>
-        </form>
-      </div>
     </div>
   </section>
 
   <!-- Recent Searches -->
   <section class="py-16 sm:py-24 bg-[var(--background-color)]">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-10">
-        <h2 class="text-3xl font-bold tracking-tight mb-2">Recent Searches</h2>
-        <div class="flex flex-wrap gap-3">
-          <button
-            class="px-4 py-2 rounded-full bg-[var(--surface-color)] text-sm font-medium hover:bg-[var(--primary-color)] hover:text-white transition-colors"
-          >
-            London to Paris
-          </button>
-          <button
-            class="px-4 py-2 rounded-full bg-[var(--surface-color)] text-sm font-medium hover:bg-[var(--primary-color)] hover:text-white transition-colors"
-          >
-            New York to Los Angeles
-          </button>
-          <button
-            class="px-4 py-2 rounded-full bg-[var(--surface-color)] text-sm font-medium hover:bg-[var(--primary-color)] hover:text-white transition-colors"
-          >
-            Berlin to Rome
-          </button>
-        </div>
-      </div>
-
       <!-- Featured Routes -->
       <div>
         <h2 class="text-3xl font-bold tracking-tight mb-8">Featured Routes</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Card 1 -->
-          <div
-            class="group transform hover:-translate-y-2 transition-transform duration-300"
-          >
-            <div class="relative">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuASMgh-BOBMRu-vIa06rX_gqMdgkYl7zH9A1rCqqjfVGkhpkhV-RVCFcdBcjoozk9L6W5xd58dd2-bmHUkrkNdiYDtvx96KrDmohr1bFdf0Pr6cEgTIH-cmdA1u1U8sq70CYZ3VLRJAz_51j1yllB_ovJ3VlZb3OzQlYmWFHSGit5z-qEWm-I7GHFUOVr_B0dHDf40daZTv4V5zpX7xQwXOBpzrp78GFNzeOkb2StJ969Rh_iaF_7f7ueV0cpQ1FNq4eG_aWHTxxEVy"
-                alt="Paris"
-                class="w-full h-56 object-cover rounded-xl"
-              />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl"
-              ></div>
-              <div class="absolute bottom-4 left-4">
-                <h3 class="text-white text-lg font-bold">London to Paris</h3>
-                <p class="text-[var(--on-surface-variant-color)] text-sm">
-                  From $50
-                </p>
+          <a href="{% url 'travel_options' %}">
+            <div
+              class="group transform hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div class="relative">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuASMgh-BOBMRu-vIa06rX_gqMdgkYl7zH9A1rCqqjfVGkhpkhV-RVCFcdBcjoozk9L6W5xd58dd2-bmHUkrkNdiYDtvx96KrDmohr1bFdf0Pr6cEgTIH-cmdA1u1U8sq70CYZ3VLRJAz_51j1yllB_ovJ3VlZb3OzQlYmWFHSGit5z-qEWm-I7GHFUOVr_B0dHDf40daZTv4V5zpX7xQwXOBpzrp78GFNzeOkb2StJ969Rh_iaF_7f7ueV0cpQ1FNq4eG_aWHTxxEVy"
+                  alt="Paris"
+                  class="w-full h-56 object-cover rounded-xl"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl"
+                ></div>
+                <div class="absolute bottom-4 left-4">
+                  <h3 class="text-white text-lg font-bold">London to Paris</h3>
+                  <p class="text-[var(--on-surface-variant-color)] text-sm">
+                    From $50
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
 
           <!-- Card 2 -->
-          <div
-            class="group transform hover:-translate-y-2 transition-transform duration-300"
-          >
-            <div class="relative">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_37h5WDizyRzRWyAuncC4VccCWAc54NSnfqK7XrUb5_bJ_uSHgNLst2qNAEDwsgJ0nqZgk6CxrrLpuzqgtURNZCSRDJ2SFiwgA0cRTWiFkvPOLi7gmmKFTv49QZckd17HtmShWQgCgvWPjAffGK1YFk60XWpiwn8Qy7q8VsKgN0x-KvSHMkf1110RXXVdrz6aV5mAWiDlpYCy6W7MC5FmJiaAj5WFORDLaNKstruQ-_UxVg9cJuGy9rADHa_E1yQR65x9sAOlI-r1"
-                alt="Los Angeles"
-                class="w-full h-56 object-cover rounded-xl"
-              />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl"
-              ></div>
-              <div class="absolute bottom-4 left-4">
-                <h3 class="text-white text-lg font-bold">
-                  New York to Los Angeles
-                </h3>
-                <p class="text-[var(--on-surface-variant-color)] text-sm">
-                  From $100
-                </p>
+          <a href="{% url 'travel_options' %}">
+            <div
+              class="group transform hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div class="relative">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_37h5WDizyRzRWyAuncC4VccCWAc54NSnfqK7XrUb5_bJ_uSHgNLst2qNAEDwsgJ0nqZgk6CxrrLpuzqgtURNZCSRDJ2SFiwgA0cRTWiFkvPOLi7gmmKFTv49QZckd17HtmShWQgCgvWPjAffGK1YFk60XWpiwn8Qy7q8VsKgN0x-KvSHMkf1110RXXVdrz6aV5mAWiDlpYCy6W7MC5FmJiaAj5WFORDLaNKstruQ-_UxVg9cJuGy9rADHa_E1yQR65x9sAOlI-r1"
+                  alt="Los Angeles"
+                  class="w-full h-56 object-cover rounded-xl"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl"
+                ></div>
+                <div class="absolute bottom-4 left-4">
+                  <h3 class="text-white text-lg font-bold">
+                    New York to Los Angeles
+                  </h3>
+                  <p class="text-[var(--on-surface-variant-color)] text-sm">
+                    From $100
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
 
           <!-- Card 3 -->
-          <div
-            class="group transform hover:-translate-y-2 transition-transform duration-300"
-          >
-            <div class="relative">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRLT17lNBYXYEp6iZk1CQBeBiPiEWJAS_Qa1nQT37Dw3IgTtnCT3JymukcJY49-cVGl5-LcnYoxK5Wmi8C-4fPEVOHKOW9_fd28e23rLM7y0bx6lpUYOYc6KBG8U7xAtz4yWDlyWYYR5q1RWHdEoblrGLp3SW2roj8-ZV2V7bbSmPVQ2qdieDL68JEc1a2qpH986NhDNaXaAl6efuXjoMVTm3KQz1HXzHZnd9_v7aT-s62_NFe9A9sVkzIXaF_qoZ2UL9GoRnmjCa7"
-                alt="Rome"
-                class="w-full h-56 object-cover rounded-xl"
-              />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl"
-              ></div>
-              <div class="absolute bottom-4 left-4">
-                <h3 class="text-white text-lg font-bold">Berlin to Rome</h3>
-                <p class="text-[var(--on-surface-variant-color)] text-sm">
-                  From $75
-                </p>
+          <a href="{% url 'travel_options' %}">
+            <div
+              class="group transform hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div class="relative">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRLT17lNBYXYEp6iZk1CQBeBiPiEWJAS_Qa1nQT37Dw3IgTtnCT3JymukcJY49-cVGl5-LcnYoxK5Wmi8C-4fPEVOHKOW9_fd28e23rLM7y0bx6lpUYOYc6KBG8U7xAtz4yWDlyWYYR5q1RWHdEoblrGLp3SW2roj8-ZV2V7bbSmPVQ2qdieDL68JEc1a2qpH986NhDNaXaAl6efuXjoMVTm3KQz1HXzHZnd9_v7aT-s62_NFe9A9sVkzIXaF_qoZ2UL9GoRnmjCa7"
+                  alt="Rome"
+                  class="w-full h-56 object-cover rounded-xl"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl"
+                ></div>
+                <div class="absolute bottom-4 left-4">
+                  <h3 class="text-white text-lg font-bold">Berlin to Rome</h3>
+                  <p class="text-[var(--on-surface-variant-color)] text-sm">
+                    From $75
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
