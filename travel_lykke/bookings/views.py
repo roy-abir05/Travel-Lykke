@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils import timezone
 
 from .forms import BookingForm
 from travel_options.models import TravelOption
@@ -24,8 +25,21 @@ def booking_form(request, pk):
 
 @login_required
 def my_bookings(request):
-    bookings = Booking.objects.filter(user=request.user)
-    return render(request, "bookings/my_bookings.html", {"bookings": bookings})
+    now = timezone.now()
+    current_bookings = Booking.objects.filter(
+        user=request.user,
+        travel_option__departure_time__gte=now
+    ).order_by("travel_option__departure_time")
+
+    past_bookings = Booking.objects.filter(
+        user=request.user,
+        travel_option__departure_time__lt=now
+    ).order_by("-travel_option__departure_time")
+
+    return render(request, "bookings/my_bookings.html", {
+        "current_bookings": current_bookings,
+        "past_bookings": past_bookings,
+    })
 
 @login_required
 def cancel_booking(request, booking_id):

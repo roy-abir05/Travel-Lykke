@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block extra_head %}
+{% extends "base.html" %}
+
+{% block extra_head %}
 <style type="text/tailwindcss">
   :root {
     --brand-color: #fb3d6d;
@@ -13,79 +15,139 @@
     font-family: "Spline Sans", "Noto Sans", sans-serif;
   }
 </style>
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <main class="flex-1 px-4 sm:px-10 md:px-20 lg:px-40 py-8">
   <div class="mx-auto flex max-w-[960px] flex-col">
     <h1 class="text-white text-4xl font-bold tracking-tight mb-6">
       My Bookings
     </h1>
 
-    {% if bookings %}
-    <div class="divide-y divide-[var(--dark-border-color)]">
-      {% for booking in bookings %}
-      <div
-        class="flex items-start justify-between gap-8 rounded-xl bg-[var(--dark-bg-secondary)] p-6 transition-colors duration-300 hover:bg-[var(--dark-bg-tertiary)] mb-5"
-      >
-        <div class="flex flex-col gap-4">
-          <div class="flex flex-col gap-2">
-            <p class="text-white text-lg font-bold">
-              Booking ID: {{ booking.booking_id }}
-            </p>
-            <div class="text-[var(--neutral-300)] text-sm space-y-1">
-              <p>
-                <strong>Route:</strong> {{ booking.travel_option.source }} to {{
-                booking.travel_option.destination }}
-              </p>
-              <p>
-                <strong>Date &amp; Time:</strong> {{
-                booking.travel_option.departure_time|date:"M d, Y" }} {{
-                booking.travel_option.departure_time|date:"H:i A" }}
-              </p>
-              <p><strong>Seats:</strong> {{ booking.number_of_seats }}</p>
-              <p><strong>Price:</strong> ${{ booking.total_price }}</p>
-              <p>
-                <strong>Status:</strong>
-                <span class="text-[var(--brand-color)] font-semibold">
-                  {% if booking.status == 'C' %}
-                    Confirmed
-                  {% elif booking.status == 'X' %}
-                    Cancelled
-                  {% else %}
-                    Unknown
-                  {% endif %}
-                </span>
-              </p>
+    <!-- Tabs -->
+    <div class="border-b border-[var(--dark-border-color)] mb-6">
+      <div class="flex gap-8">
+        <a id="upcoming-tab"
+          class="tab-link border-b-2 border-[var(--brand-color)] px-2 pb-3 pt-2 text-sm font-bold text-white cursor-pointer"
+          onclick="showTab('upcoming')"
+        >
+          Upcoming
+        </a>
+        <a id="past-tab"
+          class="tab-link border-b-2 border-transparent px-2 pb-3 pt-2 text-sm font-bold text-[var(--neutral-300)] hover:text-white transition-colors cursor-pointer"
+          onclick="showTab('past')"
+        >
+          Past
+        </a>
+      </div>
+    </div>
+
+    <!-- Upcoming Bookings -->
+    <div id="upcoming-bookings" class="tab-content">
+      {% if upcoming_bookings %}
+        <div class="divide-y divide-[var(--dark-border-color)]">
+          {% for booking in upcoming_bookings %}
+          <div
+            class="flex items-start justify-between gap-8 rounded-xl bg-[var(--dark-bg-secondary)] p-6 transition-colors duration-300 hover:bg-[var(--dark-bg-tertiary)] mb-5"
+          >
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-2">
+                <p class="text-white text-lg font-bold">
+                  Booking ID: {{ booking.booking_id }}
+                </p>
+                <div class="text-[var(--neutral-300)] text-sm space-y-1">
+                  <p><strong>Route:</strong> {{ booking.travel_option.source }} to {{ booking.travel_option.destination }}</p>
+                  <p>
+                    <strong>Date &amp; Time:</strong>
+                    {{ booking.travel_option.departure_time|date:"M d, Y" }}
+                    {{ booking.travel_option.departure_time|date:"h:i A" }}
+                  </p>
+                  <p><strong>Seats:</strong> {{ booking.number_of_seats }}</p>
+                  <p><strong>Price:</strong> ${{ booking.total_price }}</p>
+                  <p>
+                    <strong>Status:</strong>
+                    <span class="text-[var(--brand-color)] font-semibold">
+                      {% if booking.status == 'C' %} Confirmed
+                      {% elif booking.status == 'X' %} Cancelled
+                      {% else %} Unknown {% endif %}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              {% if booking.status == 'C' %}
+              <form method="post" action="{% url 'cancel_booking' booking.booking_id %}">
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="flex w-fit cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[var(--dark-bg-tertiary)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
+                >
+                  Cancel Booking
+                </button>
+              </form>
+              {% endif %}
             </div>
           </div>
-          <form method="post" action="{% url 'cancel_booking' booking.booking_id %}">
-            {% csrf_token %}
-            <button
-              type="submit"
-              class="flex w-fit cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[var(--dark-bg-tertiary)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
-            >
-              Cancel Booking
-            </button>
-          </form>
+          {% endfor %}
         </div>
-      </div>
-      {% endfor %}
+      {% else %}
+        <p class="text-[var(--neutral-300)]">No upcoming bookings.</p>
+      {% endif %}
     </div>
-    {% else %}
-    <div class="flex flex-col items-center gap-6 p-10 text-center">
-      <div class="flex max-w-sm flex-col items-center gap-2">
-        <h3 class="text-white text-xl font-bold">No upcoming bookings</h3>
-        <p class="text-[var(--neutral-300)] text-sm">
-          You don't have any upcoming bookings. Start planning your next trip!
-        </p>
-      </div>
-      <a
-        href="{% url 'travel_options' %}"
-        class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[var(--brand-color)] px-6 py-3 text-sm font-bold text-white transition-transform hover:scale-105"
-      >
-        Book a Trip
-      </a>
+
+    <!-- Past Bookings -->
+    <div id="past-bookings" class="tab-content hidden">
+      {% if past_bookings %}
+        <div class="divide-y divide-[var(--dark-border-color)]">
+          {% for booking in past_bookings %}
+          <div
+            class="flex items-start justify-between gap-8 rounded-xl bg-[var(--dark-bg-secondary)] p-6 transition-colors duration-300 hover:bg-[var(--dark-bg-tertiary)] mb-5"
+          >
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-2">
+                <p class="text-white text-lg font-bold">
+                  Booking ID: {{ booking.booking_id }}
+                </p>
+                <div class="text-[var(--neutral-300)] text-sm space-y-1">
+                  <p><strong>Route:</strong> {{ booking.travel_option.source }} to {{ booking.travel_option.destination }}</p>
+                  <p>
+                    <strong>Date &amp; Time:</strong>
+                    {{ booking.travel_option.departure_time|date:"M d, Y" }}
+                    {{ booking.travel_option.departure_time|date:"h:i A" }}
+                  </p>
+                  <p><strong>Seats:</strong> {{ booking.number_of_seats }}</p>
+                  <p><strong>Price:</strong> ${{ booking.total_price }}</p>
+                  <p>
+                    <strong>Status:</strong>
+                    <span class="text-[var(--brand-color)] font-semibold">
+                      {% if booking.status == 'C' %} Confirmed
+                      {% elif booking.status == 'X' %} Cancelled
+                      {% else %} Unknown {% endif %}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-[var(--neutral-300)]">No past bookings.</p>
+      {% endif %}
     </div>
-    {% endif %}
   </div>
 </main>
+
+<script>
+  function showTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.tab-link').forEach(el => {
+      el.classList.remove('border-[var(--brand-color)]','text-white');
+      el.classList.add('border-transparent','text-[var(--neutral-300)]');
+    });
+
+    document.getElementById(tab + '-bookings').classList.remove('hidden');
+    document.getElementById(tab + '-tab').classList.add('border-[var(--brand-color)]','text-white');
+    document.getElementById(tab + '-tab').classList.remove('border-transparent','text-[var(--neutral-300)]');
+  }
+</script>
 {% endblock %}
